@@ -1,0 +1,32 @@
+import re,os
+
+while True:
+	pathdir = input("请输入要批量替换后缀名的文件夹路径：")
+	print("当前选择目录为:",pathdir)
+	if "\\" in pathdir :
+		sn = input("请输入旧的后缀名:")
+		print("将要修改的文件后缀名为:",sn)
+		nsn = input("请输入新的后缀名:")
+		print("新的文件后缀名为:",nsn)
+		# print(len(sn))
+		file = os.listdir(pathdir)
+		for filename in file:
+			try:
+				if filename[-len(sn):] == sn: #判断文件是否属于要改后缀的文件
+					old = os.path.join(pathdir,filename)
+					new = os.path.join(pathdir,filename + nsn)
+					os.renames(old,new) 
+					print("原文件名:",old)
+					print("新文件名",new)
+					# 	os.rename()
+				else:
+					# old = os.path.join(pathdir,filename)
+					# new = os.path.join(pathdir,filename[:-3]) 
+					# os.renames(old,new)
+					# print("原文件名:",old)
+					# print("新文件名",new)
+					print("未找到匹配的文件,请检查后再操作!")
+			except Exception as err:
+				print(pathdir+filename+"修改失败,原因:",err)
+	else:
+		print("输入的路径有误,请重新输入!",'\n')
